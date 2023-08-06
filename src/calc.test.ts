@@ -10,5 +10,10 @@ describe("Calculate Bowling Scores", () => {
     expect(calculateScore(rolls)).toBe(90);
   });
 
-  
+
+  test('calculates score for all strikes', () => {
+    const rolls = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10];
+    expect(calculateScore(rolls)).toBe(300);
+  });
+
 });

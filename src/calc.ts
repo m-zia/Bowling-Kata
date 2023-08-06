@@ -5,16 +5,46 @@
 
 
 //let rolls = [5,2]
-
 export function calculateScore(rolls: number[]): number {
- 
- let score = 0;
+  let score = 0;
+  let frameIndex = 0;
 
- 
-  rolls.forEach(roll => {
-    score += roll
-  })
+  for (let frame = 0; frame < 10; frame++) {
+    if (isStrike(frameIndex, rolls)) {
+      score += 10 + strikeBonus(frameIndex, rolls);
+      frameIndex++;
+    } 
+    
+    
+    // else if (isSpare(frameIndex, rolls)) {
+    //   score += 10 + spareBonus(frameIndex, rolls);
+    //   frameIndex += 2;
+    //}
+     else {
+      score += sumOfBallsInFrame(frameIndex, rolls);
+      frameIndex += 2;
+    }
+  }
 
   return score;
+}
 
+function isStrike(frameIndex: number, rolls: number[]): boolean {
+  return rolls[frameIndex] === 10;
+}
+
+// function isSpare(frameIndex: number, rolls: number[]): boolean {
+//   return rolls[frameIndex] + rolls[frameIndex + 1] === 10;
+// }
+
+function strikeBonus(frameIndex: number, rolls: number[]): number {
+  return rolls[frameIndex + 1] + rolls[frameIndex + 2];
+}
+
+// function spareBonus(frameIndex: number, rolls: number[]): number {
+//   return rolls[frameIndex + 2];
+// }
+
+function sumOfBallsInFrame(frameIndex: number, rolls: number[]): number {
+  return rolls[frameIndex] + rolls[frameIndex + 1];
 }
